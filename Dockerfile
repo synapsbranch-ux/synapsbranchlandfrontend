@@ -13,7 +13,7 @@ COPY package.json ./
 # Use --legacy-peer-deps for React 19 compatibility
 # Then install missing/required packages explicitly
 RUN npm install --legacy-peer-deps && \
-    npm install ajv@8 ajv-keywords@5 remark-gfm rehype-highlight --legacy-peer-deps
+    npm install ajv@8 ajv-keywords@5 remark-gfm rehype-highlight highlight.js --legacy-peer-deps
 
 # Copy source code and config files
 COPY . .
