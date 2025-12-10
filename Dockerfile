@@ -11,9 +11,9 @@ COPY package.json ./
 
 # Install dependencies with npm
 # Use --legacy-peer-deps for React 19 compatibility
-# Then install ajv explicitly to fix the module resolution issue
+# Then install missing/required packages explicitly
 RUN npm install --legacy-peer-deps && \
-    npm install ajv@8 ajv-keywords@5 --legacy-peer-deps
+    npm install ajv@8 ajv-keywords@5 remark-gfm rehype-highlight --legacy-peer-deps
 
 # Copy source code and config files
 COPY . .
