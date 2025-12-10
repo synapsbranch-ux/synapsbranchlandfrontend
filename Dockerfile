@@ -24,8 +24,9 @@ WORKDIR /app
 # Copiez les fichiers construits 
 COPY --from=builder /app/build /app/build
 
-# Exposez le port 3000
+# Exposez le port 3000 (standard pour le frontend)
 EXPOSE 3000
 
-# Commande de démarrage corrigée : Utilisation de la syntaxe shell pour évaluer $PORT
-CMD serve -s build -l "$PORT"
+# Commande de démarrage corrigée : Utilisation de 'sh -c' et du protocole 'tcp://' 
+# pour garantir que 'serve' évalue correctement le port de Railway.
+CMD sh -c "serve -s build -l tcp://$PORT"
