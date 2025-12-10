@@ -9,17 +9,19 @@ WORKDIR /app
 # Copy package files first (for better caching)
 COPY package.json ./
 
-# Install dependencies with npm (no yarn.lock needed)
-# --legacy-peer-deps handles React 19 peer dependency issues
-RUN npm install --legacy-peer-deps
+# Install dependencies with npm
+# Use --legacy-peer-deps for React 19 compatibility
+# Then install ajv explicitly to fix the module resolution issue
+RUN npm install --legacy-peer-deps && \
+    npm install ajv@8 ajv-keywords@5 --legacy-peer-deps
 
-# Copy source code
+# Copy source code and config files
 COPY . .
 
 # Build the production app
-# Disable source maps for smaller bundle
 ENV GENERATE_SOURCEMAP=false
 ENV CI=false
+ENV DISABLE_ESLINT_PLUGIN=true
 
 # Build argument for backend URL (passed at build time)
 ARG REACT_APP_BACKEND_URL
